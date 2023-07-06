@@ -12,7 +12,12 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     Usuario findByEmail(String email);
 
-    @Query(value = "SELECT DISTINCT u.* FROM usuario u INNER JOIN permission p ON p.user_id = u.id WHERE u.nome like lower(concat('%',:nome,'%')) AND u.id != :id AND p.name = :nomePermission", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT u.* FROM usuario u" +
+            " INNER JOIN permission p ON p.user_id = u.id" +
+            " WHERE u.nome like lower(concat('%',:nome,'%'))" +
+            " AND u.id != :id" +
+            " AND p.name = :nomePermission",
+            nativeQuery = true)
     List<Usuario> buscarUsuariosPorNomeEPermissao(String nome, Long id, String nomePermission);
 
 }

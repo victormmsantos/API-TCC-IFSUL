@@ -5,7 +5,8 @@ import com.br.api.domain.model.Ong;
 import com.br.api.domain.request.CadastrarAnimalDataRequest;
 import com.br.api.mapper.EntityAnimalMapper;
 import com.br.api.repository.OngRepository;
-import com.br.api.service.aws.SalvarFotoService;
+import com.br.api.service.midia.aws.AwsService;
+import com.br.api.service.midia.SalvarFotoService;
 import com.br.api.service.security.AuthenticatedUserService;
 import com.br.api.validator.ValidarRequestCadastrarAnimalValidator;
 import lombok.RequiredArgsConstructor;
@@ -32,13 +33,15 @@ public class CadastrarAnimalService {
 
     private final ValidarRequestCadastrarAnimalValidator validator;
 
+    private final AwsService awsService;
+
     @Transactional
     public void cadastrar(CadastrarAnimalDataRequest request, List<MultipartFile> fotos) {
         Ong ong = buscarOngService.porIdUsuario(authenticatedUserService.getId());
 
         validator.accept(request);
 
-        List<String> fotosAnimalSalvas = salvarFotoService.salvar(fotos);
+        List<String> fotosAnimalSalvas = salvarFotoService.salvar(fotos, awsService);
 
         Animal animal = entityAnimalMapper.apply(request, fotosAnimalSalvas);
 

@@ -2,7 +2,7 @@ package com.br.api.domain.constants;
 
 public interface ExceptionsMessage {
 
-    String CONFIRMACAO_SENHA_INVALIDA = "Confirmacao de senha inválida!";
+    String  CONFIRMACAO_SENHA_INVALIDA = "Confirmacao de senha inválida!";
     String REQUEST_NULA = "Requisição nula!";
     String ONG_JA_SEGUIDA = "Ong ja seguida!";
     String CAMPO_NULO = "Campo Nulo!";

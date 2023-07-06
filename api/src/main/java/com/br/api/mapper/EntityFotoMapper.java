@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 public class EntityFotoMapper implements Function<String, Foto> {
 
     @Override
-    public Foto apply(String s) {
+    public Foto apply(String url) {
         return Foto.builder()
-                .url(s)
+                .url(url)
                 .build();
     }
 

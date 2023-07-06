@@ -4,7 +4,7 @@ import com.br.api.domain.request.CadastrarOngRequest;
 import com.br.api.domain.request.CriarCampanhaDataRequest;
 import com.br.api.service.ong.CadastrarOngService;
 import com.br.api.service.ong.CriarCampanhaService;
-import com.br.api.util.DecodeISO_8859_1Util;
+import com.br.api.util.DecodeISO8859Util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -28,7 +28,7 @@ public class OngController {
     private CriarCampanhaService criarCampanhaService;
 
     @Autowired
-    private DecodeISO_8859_1Util decoder;
+    private DecodeISO8859Util<CriarCampanhaDataRequest> decoder;
 
     @PostMapping("/cadastrar")
     @ResponseStatus(CREATED)
@@ -38,13 +38,8 @@ public class OngController {
 
     @PostMapping(path = "/campanha/criar")
     @ResponseStatus(CREATED)
-    private void criarCampanha(@RequestPart String data, @RequestPart List<MultipartFile> fotos) throws JsonProcessingException, UnsupportedEncodingException {
-
-        ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
-
-        String decodedData = decoder.decode(data);
-
-        CriarCampanhaDataRequest request = objectMapper.readValue(decodedData, CriarCampanhaDataRequest.class);
+    private void criarCampanha(@RequestPart String data, @RequestPart List<MultipartFile> fotos) {
+        CriarCampanhaDataRequest request = decoder.decode(data, CriarCampanhaDataRequest.class);
 
         criarCampanhaService.criar(request, fotos);
     }

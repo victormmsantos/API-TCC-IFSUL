@@ -20,9 +20,13 @@ public class Voluntario {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE)
     @SequenceGenerator(name = SEQUENCE, sequenceName = SEQUENCE, allocationSize = 1)
+    @Column(
+            name = "id",
+            updatable = false
+    )
     private Long id;
 
-    @Column(name = "cpf", unique = true)
+    @Column(name = "cpf", updatable = false, unique = true)
     private String cpf;
 
     @ManyToMany

@@ -5,12 +5,15 @@ import com.br.api.domain.request.AtualizarUsuarioRequest;
 import com.br.api.mapper.EntityUpdateUsuarioMapper;
 import com.br.api.repository.UsuarioRepository;
 import com.br.api.repository.VoluntarioRepository;
-import com.br.api.service.aws.SalvarFotoService;
+import com.br.api.service.midia.aws.AwsService;
+import com.br.api.service.midia.SalvarFotoService;
 import com.br.api.service.security.AuthenticatedUserService;
 import com.br.api.service.voluntario.BuscarVoluntarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Optional;
 
 import static java.util.Objects.isNull;
 
@@ -30,6 +33,8 @@ public class AtualizarUsuarioService {
 
     private final SalvarFotoService salvarFotoService;
 
+    private final AwsService awsService;
+
     public void atualizar(AtualizarUsuarioRequest request, MultipartFile foto) {
         Usuario authenticatedUser = authenticatedUserService.get();
 
@@ -38,11 +43,9 @@ public class AtualizarUsuarioService {
         if (isNull(foto)) {
             fotoParaSalvar = authenticatedUser.getFoto();
         } else {
-            fotoParaSalvar = salvarFotoService.salvar(foto);
+            fotoParaSalvar = salvarFotoService.salvar(foto, awsService);
         }
-
         Usuario updatedUser = mapper.apply(authenticatedUser, request, fotoParaSalvar);
-
 
         usuarioRepository.save(updatedUser);
     }

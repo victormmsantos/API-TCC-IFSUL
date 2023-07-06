@@ -20,8 +20,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-      # ddl-auto: create-drop
-      #ddl-auto: create
 
   datasource:
     username: root
@@ -29,11 +27,11 @@ spring:
     url: jdbc:mysql://localhost:3306/$tcc_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
 aws:
-  bucket-name: hv-tcc-bucket
-  region: sa-east-1
-  key: AKIAXBCSSREIOIMVAMD4
-  secret: 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
+  bucket-name: ${AWS_BUCKET_NAME}
+  region: ${AWS_BUCKET_REGION}
+  key: ${AWS_BUCKET_KEY}
+  secret: ${AWS_BUCKET_SECRET}
 
 twilio:
-  ACCOUNT_SID: ACdae1245e898fdfc079251573298f56a4
-  AUTH_TOKEN: 701a48443c2b1a148848dfd684781ac6
+  ACCOUNT_SID: ${TWILIO_ACCOUNT_SID}
+  AUTH_TOKEN: ${TWILIO_AUTH_TOKEN}

@@ -6,9 +6,9 @@ import java.util.function.Function;
 
 public class EntityInteresseMapper implements Function<String, Interesse> {
     @Override
-    public Interesse apply(String s) {
+    public Interesse apply(String nome) {
         return Interesse.builder()
-                .nome(s)
+                .nome(nome)
                 .build();
     }
 }

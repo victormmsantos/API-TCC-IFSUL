@@ -1,5 +1,7 @@
-package com.br.api.service.twilio;
+package com.br.api.service.notificacao.twillio;
 
+import com.br.api.domain.dto.EnvioNotificacoesDTO;
+import com.br.api.service.notificacao.EnviarNotificacaooInterface;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
@@ -7,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TwillioService {
+public class TwillioService implements EnviarNotificacaooInterface {
 
     @Value("${twilio.ACCOUNT_SID}")
     private String ACCOUNT_SID;
@@ -17,23 +19,23 @@ public class TwillioService {
 
     private static final String prefix = "whatsapp:+55";
 
-    public void enviarMensagem(String numero, String body) {
-
+    @Override
+    public void enviarNotificacao(EnvioNotificacoesDTO envioNotificacoesDTO) {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
-        String numeroA = formatToNumber(numero);
+        String numero = formatToNumber(envioNotificacoesDTO.getEndereco());
 
-        Message message = Message.creator(
-                        new PhoneNumber(numeroA),
+        Message.creator(
+                        new PhoneNumber(numero),
                         new PhoneNumber("whatsapp:+14155238886"),
-                        body)
+                        envioNotificacoesDTO.getBody())
                 .create();
-
-        System.out.println(message);
     }
+
 
     private String formatToNumber(String numero) {
         return prefix.concat(numero);
     }
+
 
 }

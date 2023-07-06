@@ -44,8 +44,11 @@ public class ResponseOngMapper implements Function<Ong, OngModelResponse> {
         return animals.stream().map(animalMapper::apply).collect(Collectors.toList());
     }
 
+    //TODO FAZER ORDENAÇÃO POR QUERY
     private List<CampanhaModelResponse> campanhasToResponse(List<Campanha> campanhas) {
-        return campanhas.stream().map(campanhaMapper::apply).sorted(Comparator.comparing(CampanhaModelResponse::getDataCriacao).reversed()).collect(Collectors.toList());
+        return campanhas.stream().map(campanhaMapper::apply)
+                .sorted(Comparator.comparing(CampanhaModelResponse::getDataCriacao).reversed())
+                .collect(Collectors.toList());
     }
 
 }

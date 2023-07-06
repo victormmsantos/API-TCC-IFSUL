@@ -16,11 +16,13 @@ public class BuscarOngService {
 
     public Ong porIdOng(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ExceptionsMessage.ONG_NAO_ENCONTRADA));
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, ExceptionsMessage.ONG_NAO_ENCONTRADA));
     }
 
     public Ong porIdUsuario(Long id) {
         return repository.findByIdUsuario(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ExceptionsMessage.ONG_NAO_ENCONTRADA));
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, ExceptionsMessage.ONG_NAO_ENCONTRADA));
     }
 }

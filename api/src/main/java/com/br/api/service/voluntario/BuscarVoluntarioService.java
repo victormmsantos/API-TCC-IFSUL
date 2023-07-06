@@ -14,11 +14,6 @@ public class BuscarVoluntarioService {
 
     private final VoluntarioRepository repository;
 
-    public Voluntario porIdVoluntario(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ExceptionsMessage.USUARIO_NAO_ENCONTRADO));
-    }
-
     public Voluntario porIdUsuario(Long id) {
         return repository.findByIdUsuario(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ExceptionsMessage.USUARIO_NAO_ENCONTRADO));

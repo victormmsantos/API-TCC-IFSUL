@@ -21,15 +21,33 @@ public class Campanha {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE)
     @SequenceGenerator(name = SEQUENCE, sequenceName = SEQUENCE, allocationSize = 1)
+    @Column(
+            name = "id",
+            updatable = false
+    )
     private Long id;
 
+    @Column(
+            name = "titulo",
+            nullable = false
+    )
     private String titulo;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(
+            name = "data_de_encerramento",
+            nullable = false
+    )
     private LocalDate dataEncerramento;
 
+    @Column(
+            name = "data_criacao",
+            nullable = false,
+            updatable = false
+    )
     private LocalDate dataCriacao;
 
+    @Column(name = "descricao")
     private String descricao;
 
     @OneToMany(cascade = CascadeType.ALL)

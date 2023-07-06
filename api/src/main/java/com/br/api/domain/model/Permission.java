@@ -2,6 +2,7 @@ package com.br.api.domain.model;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,8 +26,16 @@ public class Permission {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
+    @Column(
+            name = "id",
+            updatable = false
+    )
     private Long id;
 
+    @Column(
+            name = "name",
+            nullable = false
+    )
     private String name;
 }
 
