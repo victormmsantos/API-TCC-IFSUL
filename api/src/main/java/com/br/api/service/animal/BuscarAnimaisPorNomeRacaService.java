@@ -1,9 +1,8 @@
 package com.br.api.service.animal;
 
-import com.br.api.domain.model.Ong;
 import com.br.api.domain.response.AnimalModelResponse;
 import com.br.api.mapper.ResponseAnimalMapper;
-import com.br.api.service.ong.BuscarOngService;
+import com.br.api.repository.AnimalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +11,16 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ListarAnimaisService {
+public class BuscarAnimaisPorNomeRacaService {
 
-    private final BuscarOngService buscarOngService;
+    private final AnimalRepository animalRepository;
 
     private final ResponseAnimalMapper mapper = new ResponseAnimalMapper();
 
-    public List<AnimalModelResponse> listar(Long idOng) {
-        Ong ong = buscarOngService.porIdOng(idOng);
-
-        return ong.getAnimais().stream().map(mapper::apply).collect(Collectors.toList());
+    //TODO UTILIZAR PAGES
+    public List<AnimalModelResponse> buscar(String busca) {
+        return animalRepository.buscarAnimaisPorNomeRaca(busca).stream().map(mapper::apply)
+                .collect(Collectors.toList());
     }
 
 

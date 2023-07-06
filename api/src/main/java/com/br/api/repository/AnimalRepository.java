@@ -10,7 +10,12 @@ import java.util.List;
 @Repository
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
-    @Query(value = "SELECT DISTINCT a.* FROM animal a WHERE a.nome like lower(concat('%',:busca,'%')) OR a.raca like lower(concat('%',:busca,'%')) OR a.especie like  lower(concat('%',:busca,'%'))", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT a.* FROM animal a" +
+            " WHERE a.nome LIKE lower(concat('%',:busca,'%'))" +
+            " OR a.raca LIKE lower(concat('%',:busca,'%'))" +
+            " OR a.especie" +
+            " LIKE  lower(concat('%',:busca,'%'))",
+            nativeQuery = true)
     List<Animal> buscarAnimaisPorNomeRaca(String busca);
 
 }

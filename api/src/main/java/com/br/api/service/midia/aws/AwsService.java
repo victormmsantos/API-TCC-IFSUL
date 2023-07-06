@@ -1,7 +1,8 @@
-package com.br.api.service.aws;
+package com.br.api.service.midia.aws;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.br.api.service.midia.SalvarMidiaInterface;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +19,7 @@ import java.util.Arrays;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class AwsService {
+public class AwsService implements SalvarMidiaInterface {
 
     private static final String FILE_URL = "https://hv-tcc-bucket.s3.sa-east-1.amazonaws.com/";
 

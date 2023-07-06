@@ -7,7 +7,7 @@ import com.br.api.domain.response.BuscaUsuarioResponse;
 import com.br.api.mapper.ResponseBuscarUsuarioMapper;
 import com.br.api.mapper.ResponseBuscarUsuariosEAnimaisMapper;
 import com.br.api.repository.UsuarioRepository;
-import com.br.api.service.animal.BuscarAnimalService;
+import com.br.api.service.animal.BuscarAnimaisPorNomeRacaService;
 import com.br.api.service.security.AuthenticatedUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,12 +27,13 @@ public class BuscarUsuarioService {
 
     private final AuthenticatedUserService authenticatedUserService;
 
-    private final BuscarAnimalService buscarAnimalService;
+    private final BuscarAnimaisPorNomeRacaService buscarAnimaisPorNomeRacaService;
 
     private static final String VOLUNTARIO_PERMISSAO = "Voluntário";
 
     private static final String ONG_PERMISSAO = "Ong";
 
+    //TODO INSERIR PAGINAÇÃO
     public BuscarUsuariosEAnimaisResponse buscar(String textToSearch) {
         Long loggedUserId = authenticatedUserService.getId();
 
@@ -40,7 +41,7 @@ public class BuscarUsuarioService {
 
         List<BuscaUsuarioResponse> ongs = usuarioRepository.buscarUsuariosPorNomeEPermissao(textToSearch, loggedUserId, ONG_PERMISSAO).stream().map(mapper).collect(Collectors.toList());
 
-        List<AnimalModelResponse> animais = buscarAnimalService.buscar(textToSearch);
+        List<AnimalModelResponse> animais = buscarAnimaisPorNomeRacaService.buscar(textToSearch);
 
         return responseBuscarUsuariosEAnimaisMapper.apply(voluntarios, ongs, animais);
     }

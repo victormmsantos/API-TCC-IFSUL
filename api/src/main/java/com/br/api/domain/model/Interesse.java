@@ -19,8 +19,16 @@ public class Interesse {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE)
     @SequenceGenerator(name = SEQUENCE, sequenceName = SEQUENCE, allocationSize = 1)
+    @Column(
+            name = "id",
+            updatable = false
+    )
     private Long id;
 
+    @Column(
+            name = "nome",
+            nullable = false
+    )
     private String nome;
 
 }

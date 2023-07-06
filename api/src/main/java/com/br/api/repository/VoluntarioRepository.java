@@ -16,10 +16,17 @@ public interface VoluntarioRepository extends JpaRepository<Voluntario, Long> {
 
     Optional<Voluntario> findByUsuario(Usuario usuario);
 
-    @Query(value = "SELECT * FROM voluntario v INNER JOIN usuario u ON u.id = v.user_id where u.id = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM voluntario v" +
+            " INNER JOIN usuario u ON u.id = v.user_id" +
+            " WHERE u.id = :id",
+            nativeQuery = true)
     Optional<Voluntario> findByIdUsuario(@Param(value = "id") final Long id);
 
-    @Query(value = "SELECT DISTINCT v.* FROM voluntario v INNER JOIN voluntario_interesse vi on vi.voluntario_id = v.id INNER JOIN campanha c on c.id = :idCampanha WHERE c.id_ong = :idOng", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT v.* FROM voluntario v" +
+            " INNER JOIN voluntario_interesse vi ON vi.voluntario_id = v.id" +
+            " INNER JOIN campanha c ON c.id = :idCampanha" +
+            " WHERE c.id_ong = :idOng",
+            nativeQuery = true)
     List<Voluntario> findVoluntarioInteressados(Long idCampanha, Long idOng);
 }
 

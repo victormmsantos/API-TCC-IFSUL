@@ -9,7 +9,7 @@ import com.br.api.service.security.BuscarUsuarioAutenticadoStrategy;
 import com.br.api.service.usuario.AtualizarUsuarioService;
 import com.br.api.service.usuario.BuscarOngVoluntarioService;
 import com.br.api.service.usuario.BuscarUsuarioService;
-import com.br.api.util.DecodeISO_8859_1Util;
+import com.br.api.util.DecodeISO8859Util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -35,7 +35,7 @@ public class UserController {
     private BuscarUsuarioService buscarUsuarioService;
 
     @Autowired
-    private DecodeISO_8859_1Util decoder;
+    private DecodeISO8859Util<AtualizarUsuarioRequest> decoder;
 
     @GetMapping("/buscar/{id}")
     private OngVoluntarioModelResponse buscarOngVoluntario(@PathVariable Long id) {
@@ -58,15 +58,9 @@ public class UserController {
     }
 
     @PutMapping("/atualizar")
-    public void atualizarUsuario(@RequestPart String data, @RequestPart @Nullable MultipartFile foto) throws JsonProcessingException {
-
-        ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
-
-        String decodedData = decoder.decode(data);
-
-        AtualizarUsuarioRequest request = objectMapper.readValue(decodedData, AtualizarUsuarioRequest.class);
+    public void atualizarUsuario(@RequestPart String data, @RequestPart @Nullable MultipartFile foto) {
+        AtualizarUsuarioRequest request = decoder.decode(data, AtualizarUsuarioRequest.class);
 
         atualizarUsuarioService.atualizar(request, foto);
     }
-
 }

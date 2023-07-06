@@ -19,22 +19,46 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE)
     @SequenceGenerator(name = SEQUENCE, sequenceName = SEQUENCE, allocationSize = 1)
+    @Column(
+            name = "id",
+            updatable = false
+    )
     private Long id;
 
-    @Column(nullable = false)
+    @Column(
+            name = "nome",
+            nullable = false
+    )
     private String nome;
 
-    @Column(nullable = false, unique = true)
+    @Column(
+            name = "email",
+            nullable = false,
+            unique = true
+    )
     private String email;
 
-    @Column(nullable = false, unique = true)
+    @Column(
+            name = "senha",
+            nullable = false,
+            unique = true
+    )
     private String senha;
 
+    @Column(
+            name = "endereco",
+            nullable = false
+    )
     private String endereco;
 
+    @Column(name = "foto")
     private String foto;
 
-    @Column(nullable = false, unique = true)
+    @Column(
+            name = "telefone",
+            nullable = false,
+            unique = true
+    )
     private String telefone;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

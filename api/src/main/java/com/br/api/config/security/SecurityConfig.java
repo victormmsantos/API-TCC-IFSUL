@@ -37,7 +37,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers(HttpMethod.POST, "/login", "/*/cadastrar").permitAll().and()
                 .authorizeRequests().antMatchers(HttpMethod.GET, "/state/*", "/v2/api-docs").permitAll().and()
 
-
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
                 .httpBasic();
