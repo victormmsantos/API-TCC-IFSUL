@@ -17,7 +17,7 @@ public class EnviarNotificacaoCampanhaService {
 
     private final TwillioService twillioService;
 
-    public void send(EnviarNotificacaooInterface servico, Campanha campanha, List<Voluntario> voluntariosParaNotificar) {
+    public void send(EnviarNotificacaoInterface servico, Campanha campanha, List<Voluntario> voluntariosParaNotificar) {
         voluntariosParaNotificar.forEach(v -> {
 
             EnvioNotificacoesDTO envioNotificacoesDTO = EnvioNotificacoesDTO.builder()
